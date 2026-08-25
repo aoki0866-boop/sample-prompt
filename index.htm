@@ -2,135 +2,476 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>セミナー用プロンプト</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173b57">
+  <title>セミナー用プロンプト集</title>
   <style>
-    body {
-      margin: 0;
-      background: #f4f6f8;
-      color: #222;
-      font-family: sans-serif;
+    :root {
+      --ink: #17242f;
+      --muted: #566775;
+      --paper: #ffffff;
+      --background: #eef3f6;
+      --primary: #0c6b78;
+      --primary-dark: #07535d;
+      --border: #d8e1e6;
+      --create: #146f94;
+      --discover: #9a5b14;
+      --analyze: #6250a3;
+      --shadow: 0 12px 30px rgba(23, 59, 87, 0.09);
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 42px 18px 34px;
+      color: #fff;
+      background: linear-gradient(135deg, #173b57 0%, #0c6b78 100%);
+    }
+
+    .header-inner,
     main {
-      max-width: 720px;
-      margin: auto;
-      padding: 24px 16px 60px;
+      width: min(100%, 920px);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
     }
 
     h1 {
-      font-size: 24px;
+      margin: 0;
+      font-size: clamp(28px, 7vw, 42px);
+      line-height: 1.25;
     }
 
-    .steps {
-      line-height: 1.8;
+    .lead {
+      max-width: 700px;
+      margin: 14px 0 0;
       font-size: 17px;
     }
 
-    button {
+    main {
+      padding: 26px 16px 64px;
+    }
+
+    .guide {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 34px;
+    }
+
+    .guide-step {
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--paper);
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .guide-step span {
+      display: block;
+      color: var(--primary);
+      font-size: 13px;
+    }
+
+    section + section {
+      margin-top: 38px;
+    }
+
+    .section-heading {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      margin: 0 0 14px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 23px;
+    }
+
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--accent);
+      border-radius: 14px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .card.create { --accent: var(--create); }
+    .card.discover { --accent: var(--discover); }
+    .card.analyze { --accent: var(--analyze); }
+
+    .number {
+      display: inline-grid;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      place-items: center;
+      color: #fff;
+      background: var(--accent);
+      font-weight: 800;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    .description {
+      flex: 1;
+      margin: 10px 0 16px;
+      color: var(--muted);
+    }
+
+    .copy-button {
       width: 100%;
-      margin: 16px 0;
-      padding: 18px;
+      min-height: 58px;
+      padding: 12px 16px;
       border: 0;
       border-radius: 10px;
-      background: #1769e0;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
+      color: #fff;
+      background: var(--primary);
+      font: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .copy-button:hover {
+      background: var(--primary-dark);
+    }
+
+    .copy-button:active {
+      transform: translateY(1px);
+    }
+
+    .copy-button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    details {
+      margin-top: 12px;
+      border-top: 1px solid var(--border);
+      padding-top: 10px;
+    }
+
+    summary {
+      color: var(--primary-dark);
+      font-weight: 700;
       cursor: pointer;
     }
 
-    button:disabled {
-      background: #999;
-    }
-
-    #message {
-      min-height: 30px;
-      text-align: center;
-      color: #087a37;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    textarea {
-      box-sizing: border-box;
-      width: 100%;
-      height: 300px;
-      padding: 14px;
-      border: 1px solid #bbb;
+    .preview {
+      max-height: 320px;
+      overflow: auto;
+      margin: 10px 0 0;
+      padding: 12px;
       border-radius: 8px;
-      background: white;
-      font-size: 15px;
-      line-height: 1.6;
+      background: #f5f7f8;
+      font: 13px/1.65 ui-monospace, SFMono-Regular, Consolas, monospace;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
     .notice {
-      margin-top: 24px;
-      padding: 12px;
-      background: #fff4d6;
+      margin-top: 34px;
+      padding: 16px 18px;
+      border-left: 5px solid #d19623;
       border-radius: 8px;
-      font-size: 14px;
+      background: #fff8e8;
+    }
+
+    .notice strong {
+      display: block;
+    }
+
+    .toast {
+      position: fixed;
+      z-index: 10;
+      right: 16px;
+      bottom: 16px;
+      left: 16px;
+      max-width: 520px;
+      margin: auto;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: #fff;
+      background: #173b57;
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+      font-weight: 800;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 680px) {
+      header {
+        padding-top: 30px;
+      }
+
+      .guide,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .guide {
+        gap: 8px;
+      }
+
+      .guide-step {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-note {
+        margin-top: 4px;
+      }
     }
   </style>
 </head>
-
 <body>
+  <header>
+    <div class="header-inner">
+      <p class="eyebrow">セミナー用</p>
+      <h1>ランディングページ活用<br>プロンプト集</h1>
+      <p class="lead">目的に合うプロンプトを選び、ボタンを押してコピーしてください。</p>
+    </div>
+  </header>
+
   <main>
-    <h1>セミナー用プロンプト</h1>
-
-    <div class="steps">
-      <p>① 下のボタンを押します。</p>
-      <p>② 普段お使いの生成AIを開きます。</p>
-      <p>③ 入力欄を長押しして「貼り付け」を選びます。</p>
+    <div class="guide" aria-label="使い方">
+      <div class="guide-step"><span>STEP 1</span>目的に合うものを選ぶ</div>
+      <div class="guide-step"><span>STEP 2</span>コピーボタンを押す</div>
+      <div class="guide-step"><span>STEP 3</span>生成AIに貼り付ける</div>
     </div>
 
-    <button id="copyButton" disabled>
-      読み込み中です
-    </button>
+    <section aria-labelledby="create-heading">
+      <div class="section-heading">
+        <h2 id="create-heading">LPを作る・改善する</h2>
+        <p class="section-note">まず試してみたい方はこちら</p>
+      </div>
+      <div class="cards">
+        <article class="card create">
+          <span class="number">1</span>
+          <h3>ランディングページ作成</h3>
+          <p class="description">生成AIでランディングページを作成するためのサンプルです。自社の製品やサービスに書き換えて使えます。</p>
+          <button class="copy-button" type="button" data-file="prompt-1.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-1.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
 
-    <div id="message" aria-live="polite"></div>
+        <article class="card create">
+          <span class="number">2</span>
+          <h3>ランディングページの改善評価</h3>
+          <p class="description">生成したLPを評価し、より売れやすくするための改善点を初心者にも分かりやすく確認します。</p>
+          <button class="copy-button" type="button" data-file="prompt-2.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-2.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
+      </div>
+    </section>
 
-    <details>
-      <summary>プロンプトの内容を確認する</summary>
-      <textarea id="prompt" readonly></textarea>
-    </details>
+    <section aria-labelledby="discover-heading">
+      <div class="section-heading">
+        <h2 id="discover-heading">自社の強みを発見する</h2>
+        <p class="section-note">迷った場合は簡易版からお試しください</p>
+      </div>
+      <div class="cards">
+        <article class="card discover">
+          <span class="number">3</span>
+          <h3>感覚的価値をAIと発掘（簡易版）</h3>
+          <p class="description">AIと対話しながら、自社では当たり前になっている強みを発見する短いプロンプトです。</p>
+          <button class="copy-button" type="button" data-file="prompt-3.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-3.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
 
-    <div class="notice">
-      個人情報や社外秘情報は入力しないでください。
-    </div>
+        <article class="card discover">
+          <span class="number">4</span>
+          <h3>感覚的価値をAIと発掘（詳細版）</h3>
+          <p class="description">AIとの丁寧な対話を通じて、自社の強みと感覚的価値を深く掘り下げる長いプロンプトです。</p>
+          <button class="copy-button" type="button" data-file="prompt-4.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-4.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="analyze-heading">
+      <div class="section-heading">
+        <h2 id="analyze-heading">既存のLPを分析する</h2>
+        <p class="section-note">他社事例から学び、自社に活かします</p>
+      </div>
+      <div class="cards">
+        <article class="card analyze">
+          <span class="number">5</span>
+          <h3>ランディングページの分析（簡易版）</h3>
+          <p class="description">すでに存在するLPを短時間で分析し、強みや改善余地を初心者にも分かりやすく整理します。</p>
+          <button class="copy-button" type="button" data-file="prompt-5.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-5.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
+
+        <article class="card analyze">
+          <span class="number">6</span>
+          <h3>ランディングページの分析（詳細版）</h3>
+          <p class="description">既存のLPを詳しく分析し、競合との違いや自社に活かせる考え方まで整理します。</p>
+          <button class="copy-button" type="button" data-file="prompt-6.txt">このプロンプトをコピー</button>
+          <details data-file="prompt-6.txt">
+            <summary>プロンプトの内容を見る</summary>
+            <pre class="preview">読み込み中です…</pre>
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <aside class="notice">
+      <strong>生成AIを利用するときの注意</strong>
+      個人情報、顧客情報、社外秘情報、パスワードなどは入力しないでください。
+    </aside>
   </main>
 
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
   <script>
-    const promptArea = document.getElementById("prompt");
-    const copyButton = document.getElementById("copyButton");
-    const message = document.getElementById("message");
+    const textCache = new Map();
+    const toast = document.getElementById("toast");
+    let toastTimer;
 
-    fetch("./prompt.txt", { cache: "no-store" })
-      .then(response => {
-        if (!response.ok) throw new Error();
-        return response.text();
-      })
-      .then(text => {
-        promptArea.value = text;
-        copyButton.disabled = false;
-        copyButton.textContent = "プロンプトをコピーする";
-      })
-      .catch(() => {
-        copyButton.textContent = "読み込みに失敗しました";
+    async function loadPrompt(file) {
+      if (textCache.has(file)) return textCache.get(file);
+
+      const response = await fetch(file, { cache: "no-store" });
+      if (!response.ok) throw new Error(`${file}を読み込めませんでした`);
+
+      const text = await response.text();
+      textCache.set(file, text);
+      return text;
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    function fallbackCopy(text) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.focus();
+      area.select();
+      area.setSelectionRange(0, area.value.length);
+      const copied = document.execCommand("copy");
+      area.remove();
+      if (!copied) throw new Error("コピーできませんでした");
+    }
+
+    document.querySelectorAll(".copy-button").forEach(button => {
+      button.addEventListener("click", async () => {
+        const originalLabel = button.textContent;
+        button.disabled = true;
+        button.textContent = "コピーしています…";
+
+        try {
+          const text = await loadPrompt(button.dataset.file);
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch {
+            fallbackCopy(text);
+          }
+
+          button.textContent = "コピーしました";
+          showToast("プロンプトをコピーしました。生成AIに貼り付けてください。");
+          setTimeout(() => {
+            button.textContent = originalLabel;
+            button.disabled = false;
+          }, 2200);
+        } catch (error) {
+          button.textContent = "読み込みに失敗しました";
+          showToast("プロンプトを読み込めませんでした。ページを再読み込みしてください。");
+          setTimeout(() => {
+            button.textContent = originalLabel;
+            button.disabled = false;
+          }, 3000);
+        }
       });
+    });
 
-    copyButton.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(promptArea.value);
-      } catch {
-        promptArea.select();
-        promptArea.setSelectionRange(0, promptArea.value.length);
-        document.execCommand("copy");
-      }
+    document.querySelectorAll("details[data-file]").forEach(details => {
+      details.addEventListener("toggle", async () => {
+        if (!details.open || details.dataset.loaded === "true") return;
 
-      message.textContent = "コピーしました";
-      copyButton.textContent = "コピー完了";
+        const preview = details.querySelector(".preview");
+        try {
+          preview.textContent = await loadPrompt(details.dataset.file);
+          details.dataset.loaded = "true";
+        } catch {
+          preview.textContent = "読み込みに失敗しました。ページを再読み込みしてください。";
+        }
+      });
     });
   </script>
 </body>
